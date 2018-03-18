@@ -50,12 +50,3 @@ def main():
     print(generator(first_word, args.length, args.model, args.output))
 if __name__ == '__main__':
     main()
-
-
-
-
-
-
-
-
-
