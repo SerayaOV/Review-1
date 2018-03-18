@@ -47,6 +47,6 @@ def main():
         first_word = random.choice(words.values)
     else:
         first_word = args.seed
-    print(generator(first_word, args.length, args.model, args.output))
+    generator(first_word, args.length, args.model, args.output)
 if __name__ == '__main__':
     main()
