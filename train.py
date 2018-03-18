@@ -32,19 +32,21 @@ def main():
     words = []
     di_r = args.input
     if di_r == 'stdin':
-        for lines in sys.stdin.readlines():
+        for line in sys.stdin.readlines():
             if l_c:
                 line = line.lower()
             words += re.findall(r'[A-Za-zА-Яа-я0-9]+|[.?,!@]+', line)
-        pickle.dump(make_dict(words), args.model, 2)
+        with open(args.model, 'wb') as f:
+                pickle.dump(make_dict(words), f)
     else:
         txtfiles = list(filter(lambda x: x.endswith('.txt'), os.listdir(di_r)))
         for file in txtfiles:
-            filepath = di_r + '/' + file
-            for lines in open(filepath, 'r'):
+            filepath = di_r + '\\' + file
+            for line in open(filepath, 'r'):
                 if l_c:
                     line = line.lower()
                 words += re.findall(r'[A-Za-zА-Яа-я0-9]+|[.?,!@]+', line)
-            pickle.dump(make_dict(words), args.model, 2)
+            with open(args.model, 'wb') as f:
+                pickle.dump(make_dict(words), f)
 if __name__ == '__main__':
     main()
