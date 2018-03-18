@@ -3,15 +3,15 @@ import re
 import random
 import pickle
 import collections
-
+import sys
 
 def rand(dic_t, value):
     su_m = 0
-    for k in dic_t[value]:
+    for k in list(dic_t[value].elements()):
        su_m += dic_t[value][k]
-    val = random.choice(range(1, su_m))
+    val = random.choice(range(1, su_m + 1))
     su_m = 0;
-    for k in dic_t[value]:
+    for k in list(dic_t[value].elements()):
         su_m += dic_t[value][k]
         k = k
         if su_m >= val:
@@ -19,35 +19,36 @@ def rand(dic_t, value):
 
 
 def generator(first_w, le_n, model, out):
-    words = pickle.load(model)
-    if out != 'stdout':
-        open(out, 'w')
+    md = open(model, 'rb')
+    words = pickle.load(md, encoding='UTF-8')
+    md.close()
     wrd = first_w
     if out != 'stdout':
-        out.write(wrd)
-        out.write(' ')
+        ou_t = open(out, 'w')
+        ou_t.write(wrd)
+        ou_t.write(' ')
     else:
         sys.stdout.write(wrd)
         sys.stdout.write(' ')
     for i in range(le_n - 1):
-        if not wrd in words:
-            wrd = random.choice(words.values)
+        if not wrd in list(words.keys()):
+            wrd = random.choice(list(words.keys()))
             if out != 'stdout':
-                   out.write(wrd)
-                   out.write(' ')
+                   ou_t.write(wrd)
+                   ou_t.write(' ')
             else:
                sys.stdout.write(wrd)
                sys.stdout.write(' ')
         else:
             wrd = rand(words, wrd)
             if out != 'stdout':
-                   out.write(wrd)
-                   out.write(' ')
+                   ou_t.write(wrd)
+                   ou_t.write(' ')
             else:
                sys.stdout.write(wrd)
                sys.stdout.write(' ')
     if out != 'stdout':
-        out.close()
+        ou_t.close()
 
 
 def main():
@@ -57,9 +58,11 @@ def main():
     parser.add_argument('--length', required=True, type=int, help='Length of the new text')
     parser.add_argument('--output', default='stdout', help='Output file')
     args = parser.parse_args()
-    words = pickle.load(args.model)
+    f = open(args.model, 'rb')
+    words = dict(pickle.load(f))
+    f.close()
     if args.seed == '':
-        first_word = random.choice(words.values)
+        first_word = random.choice(list(words.keys()))
     else:
         first_word = args.seed
     generator(first_word, args.length, args.model, args.output)
