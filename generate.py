@@ -5,6 +5,7 @@ import pickle
 import collections
 import sys
 
+
 def rand(dic_t, value):
     su_m = 0
     for k in list(dic_t[value].elements()):
