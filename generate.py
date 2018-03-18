@@ -20,19 +20,34 @@ def rand(dic_t, value):
 
 def generator(first_w, le_n, model, out):
     words = pickle.load(model)
-    open(out, 'w')
+    if out != 'stdout':
+        open(out, 'w')
     wrd = first_w
-    out.write(wrd)
+    if out != 'stdout':
+        out.write(wrd)
+        out.write(' ')
+    else:
+        sys.stdout.write(wrd)
+        sys.stdout.write(' ')
     for i in range(le_n - 1):
         if not wrd in words:
             wrd = random.choice(words.values)
-            out.write(wrd)
-            out.write(' ')
+            if out != 'stdout':
+                   out.write(wrd)
+                   out.write(' ')
+            else:
+               sys.stdout.write(wrd)
+               sys.stdout.write(' ')
         else:
             wrd = rand(words, wrd)
-            out.write(wrd)
-            out.write(' ')
-    out.close()
+            if out != 'stdout':
+                   out.write(wrd)
+                   out.write(' ')
+            else:
+               sys.stdout.write(wrd)
+               sys.stdout.write(' ')
+    if out != 'stdout':
+        out.close()
 
 
 def main():
