@@ -7,16 +7,13 @@ import sys
 
 
 def rand(dic_t, value):
-    su_m = 0
+    words_lst = list()
     for k in list(dic_t[value].elements()):
-       su_m += dic_t[value][k]
-    val = random.choice(range(1, su_m + 1))
-    su_m = 0;
-    for k in list(dic_t[value].elements()):
-        su_m += dic_t[value][k]
-        k = k
-        if su_m >= val:
-            return k
+        #print(dic_t[value][k])
+        for i in range(dic_t[value][k]):
+            words_lst.append(k)
+        #print(words_lst)
+    return random.choice(words_lst)
 
 
 def generator(first_w, le_n, model, out):
