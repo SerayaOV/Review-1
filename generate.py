@@ -21,28 +21,22 @@ def generator(first_w, le_n, model, out):
     wrd = first_w
     if out != 'stdout':
         ou_t = open(out, 'w')
-        ou_t.write(wrd)
-        ou_t.write(' ')
+        ou_t.write(wrd + ' ')
     else:
-        sys.stdout.write(wrd)
-        sys.stdout.write(' ')
+        sys.stdout.write(wrd + ' ')
     for i in range(le_n - 1):
         if not wrd in list(words.keys()):
             wrd = random.choice(list(words.keys()))
             if out != 'stdout':
-                   ou_t.write(wrd)
-                   ou_t.write(' ')
+                   ou_t.write(wrd + ' ')
             else:
-               sys.stdout.write(wrd)
-               sys.stdout.write(' ')
+               sys.stdout.write(wrd + ' ')
         else:
             wrd = rand(words, wrd)
             if out != 'stdout':
-                   ou_t.write(wrd)
-                   ou_t.write(' ')
+                   ou_t.write(wrd + ' ')
             else:
-               sys.stdout.write(wrd)
-               sys.stdout.write(' ')
+               sys.stdout.write(wrd + ' ')
     if out != 'stdout':
         ou_t.close()
 
