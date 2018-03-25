@@ -36,8 +36,6 @@ def main():
             if l_c:
                 line = line.lower()
             words += re.findall(r'[A-Za-zА-Яа-я0-9]+|[.?,!@]+', line)
-        with open(args.model, 'wb') as f:
-                pickle.dump(make_dict(words), f)
     else:
         txtfiles = list(filter(lambda x: x.endswith('.txt'), os.listdir(di_r)))
         for file in txtfiles:
@@ -46,7 +44,7 @@ def main():
                 if l_c:
                     line = line.lower()
                 words += re.findall(r'[A-Za-zА-Яа-я0-9]+|[.?,!@]+', line)
-        with open(args.model, 'wb') as f:
-            pickle.dump(make_dict(words), f)
+    with open(args.model, 'wb') as f:
+        pickle.dump(make_dict(words), f)
 if __name__ == '__main__':
     main()
