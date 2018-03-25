@@ -41,7 +41,7 @@ def main():
     else:
         txtfiles = list(filter(lambda x: x.endswith('.txt'), os.listdir(di_r)))
         for file in txtfiles:
-            filepath = di_r + '\\' + file
+            filepath = di_r + os.sep + file
             for line in open(filepath, 'r'):
                 if l_c:
                     line = line.lower()
