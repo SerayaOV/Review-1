@@ -13,7 +13,7 @@ def make_dict(words):
         word1 = words[i]
         word2 = words[i + 1]
         if word1 not in dict_:
-            dict_[word1] = collections.Counter()
+            dict_[word1] = collections.defaultdict(int)
         dict_[word1][word2] += 1
     return dict_
 
@@ -25,23 +25,22 @@ def main():
     parser.add_argument('--model', default='model.txt', required=True, help='Where to save the model')
     parser.add_argument('--lc', default=False, help='To do lowercase or not to do')
     args = parser.parse_args()
+    lowercase = False
     if args.lc:
-        l_c = True
-    else:
-        l_c = False
+        lowercase = True
     words = []
-    di_r = args.input
-    if di_r == 'stdin':
+    input_dir = args.input
+    if input_dir == 'stdin':
         for line in sys.stdin.readlines():
-            if l_c:
+            if lowercase:
                 line = line.lower()
             words += re.findall(r'[A-Za-zА-Яа-я0-9]+|[.?,!@]+', line)
     else:
-        txtfiles = list(filter(lambda x: x.endswith('.txt'), os.listdir(di_r)))
+        txtfiles = list(filter(lambda x: x.endswith('.txt'), os.listdir(input_dir)))
         for file in txtfiles:
-            filepath = di_r + os.sep + file
+            filepath = input_dir + os.sep + file
             for line in open(filepath, 'r'):
-                if l_c:
+                if lowercase:
                     line = line.lower()
                 words += re.findall(r'[A-Za-zА-Яа-я0-9]+|[.?,!@]+', line)
     with open(args.model, 'wb') as f:
