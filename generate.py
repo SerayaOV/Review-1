@@ -8,7 +8,7 @@ import sys
 
 def rand(dic_t, value):
     words_lst = list()
-    for k in list(dic_t[value].elements()):
+    for k in list(dic_t[value]):
         for i in range(dic_t[value][k]):
             words_lst.append(k)
     return random.choice(words_lst)
