@@ -4,17 +4,15 @@ import re
 import pickle
 import os
 import collections
+import functools
 
 
 def make_dict(words):
-    dict_ = dict()
-    le = len(words)
-    for i in range(le - 1):
-        word1 = words[i]
-        word2 = words[i + 1]
-        if word1 not in dict_:
-            dict_[word1] = collections.defaultdict(int)
-        dict_[word1][word2] += 1
+    dict_ = collections.defaultdict(functools.partial(collections.defaultdict, int))
+    length = len(words)
+    couples = zip(words[:length - 1], words[1:])
+    for i in couples:
+        dict_[i[0]][i[1]] += 1
     return dict_
 
 
@@ -47,3 +45,8 @@ def main():
         pickle.dump(make_dict(words), f)
 if __name__ == '__main__':
     main()
+
+
+
+
+
