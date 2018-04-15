@@ -5,13 +5,13 @@ import pickle
 import collections
 import sys
 
-
 def rand(dic_t, value):
     words_lst = list()
     for k in list(dic_t[value]):
         for i in range(dic_t[value][k]):
             words_lst.append(k)
     return random.choice(words_lst)
+
 
 
 def generator(first_w, le_n, model, out):
@@ -21,22 +21,16 @@ def generator(first_w, le_n, model, out):
     wrd = first_w
     if out != 'stdout':
         ou_t = open(out, 'w')
-        ou_t.write(wrd + ' ')
     else:
-        sys.stdout.write(wrd + ' ')
+        ou_t = sys.stdout
+    ou_t.write(wrd + ' ')
     for i in range(le_n - 1):
         if not wrd in list(words.keys()):
             wrd = random.choice(list(words.keys()))
-            if out != 'stdout':
-                   ou_t.write(wrd + ' ')
-            else:
-               sys.stdout.write(wrd + ' ')
+            ou_t.write(wrd + ' ')
         else:
             wrd = rand(words, wrd)
-            if out != 'stdout':
-                   ou_t.write(wrd + ' ')
-            else:
-               sys.stdout.write(wrd + ' ')
+            ou_t.write(wrd + ' ')
     if out != 'stdout':
         ou_t.close()
 
@@ -58,3 +52,10 @@ def main():
     generator(first_word, args.length, args.model, args.output)
 if __name__ == '__main__':
     main()
+
+
+
+
+
+
+
