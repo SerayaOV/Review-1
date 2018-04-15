@@ -13,7 +13,6 @@ def rand(dic_t, value):
     return random.choice(words_lst)
 
 
-
 def generator(first_w, le_n, model, out):
     md = open(model, 'rb')
     words = pickle.load(md, encoding='UTF-8')
@@ -23,14 +22,12 @@ def generator(first_w, le_n, model, out):
         ou_t = open(out, 'w')
     else:
         ou_t = sys.stdout
+    if wrd not in list(words.keys()):
+        wrd = random.choice(list(words.keys()))
     ou_t.write(wrd + ' ')
     for i in range(le_n - 1):
-        if not wrd in list(words.keys()):
-            wrd = random.choice(list(words.keys()))
-            ou_t.write(wrd + ' ')
-        else:
-            wrd = rand(words, wrd)
-            ou_t.write(wrd + ' ')
+        wrd = rand(words, wrd)
+        ou_t.write(wrd + ' ')
     if out != 'stdout':
         ou_t.close()
 
