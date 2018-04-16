@@ -14,9 +14,8 @@ def rand(dic_t, value):
 
 
 def generator(first_w, le_n, model, out):
-    md = open(model, 'rb')
-    words = pickle.load(md, encoding='UTF-8')
-    md.close()
+    with open(model, 'rb') as md:
+         words = pickle.load(md, encoding='UTF-8')
     wrd = first_w
     if out != 'stdout':
         ou_t = open(out, 'w')
